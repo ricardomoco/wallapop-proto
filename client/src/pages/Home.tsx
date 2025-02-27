@@ -59,8 +59,8 @@ export default function Home() {
   };
   
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <header className="sticky top-0 z-10 bg-white">
+    <div className="bg-gray-50 min-h-screen flex flex-col">
+      <header className="sticky top-0 z-10 bg-white safe-area-top">
         <StatusBar />
         <SearchBar 
           searchQuery={searchQuery}
@@ -77,12 +77,12 @@ export default function Home() {
         />
       </header>
       
-      <main className="px-4 py-6">
-        <div className="mb-6">
+      <main className="px-3 py-4 md:px-4 md:py-6 flex-grow">
+        <div className="mb-4">
           <h1 className="text-xl font-semibold mb-1">Find what you want</h1>
           <div className="flex items-center text-sm text-gray-500">
             Search results
-            <button className="ml-1">
+            <button className="ml-1 h-6 w-6 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -92,6 +92,8 @@ export default function Home() {
         
         <ProductGrid products={products || []} isLoading={isLoading} userId={userId} />
       </main>
+      
+      <div className="h-6 safe-area-bottom"></div>
     </div>
   );
 }
