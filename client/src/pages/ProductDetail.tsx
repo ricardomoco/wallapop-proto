@@ -282,6 +282,20 @@ export default function ProductDetail() {
           </div>
         </div>
         
+        {/* Popular Item Callout */}
+        <div className="px-4 py-3 border-b">
+          <div className="bg-gray-100 rounded-md px-4 py-3 flex items-center">
+            <span className="text-amber-500 mr-3">
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </span>
+            <p className="text-sm font-medium">
+              <span className="font-bold">Popular item.</span> Item is being viewed by 8 people.
+            </p>
+          </div>
+        </div>
+        
         {/* Product Description - Styled as in IMG_2014 */}
         <div className="px-4 py-3 border-b">
           <p className="text-gray-800 leading-relaxed">
