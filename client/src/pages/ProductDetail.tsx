@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useRoute, Link } from "wouter";
+import React, { useState, useEffect, useRef } from "react";
+import { useRoute, Link, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { type ProductResponse } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
@@ -19,6 +19,21 @@ export default function ProductDetail() {
   const [, params] = useRoute<{ id: string }>("/product/:id");
   const productId = params?.id ? parseInt(params.id) : 0;
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showBuyButton, setShowBuyButton] = useState(true);
+  const headerRef = useRef<HTMLDivElement>(null);
+  
+  // Control buy button visibility based on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current) {
+        // Show button when scrolling down, hide at the top
+        setShowBuyButton(window.scrollY > 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   // Fetch product detail
   const { data: product, isLoading } = useQuery<ProductResponse>({
@@ -127,7 +142,7 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-white shadow-sm">
+      <div ref={headerRef} className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
           <Link href="/">
             <a className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
