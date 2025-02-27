@@ -54,7 +54,7 @@ export class MemStorage implements IStorage {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://i.ibb.co/v3XsXc3/pokemon-blue.jpg", 
+        imageUrl: "https://retromags.com/uploads/gallery/album_1494/gallery_12723_1494_207998.png", 
         isReserved: false,
         shippingAvailable: true
       },
@@ -62,7 +62,7 @@ export class MemStorage implements IStorage {
         name: "Gameboy Color Transparent",
         price: 9000, // €90.00
         description: "Transparent Game Boy Color in excellent working condition",
-        imageUrl: "https://i.ibb.co/T0XTb1K/gameboy-transparent.jpg",
+        imageUrl: "https://nintendosegajapan.com/wp-content/uploads/2020/05/game-boy-color-transparent-1.jpg",
         isReserved: false,
         shippingAvailable: true
       },
@@ -70,7 +70,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color (Lime Green)",
         price: 7000, // €70.00
         description: "Lime Green Game Boy Color, minor scratches but works perfectly",
-        imageUrl: "https://i.ibb.co/Xj9Fnxy/gameboy-green.jpg",
+        imageUrl: "https://www.retroplace.com/pics/gameboy/versions/118208_pic0.jpg",
         isReserved: false,
         shippingAvailable: true
       },
@@ -78,7 +78,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color Transparent Purple",
         price: 2500, // €25.00
         description: "Transparent Purple Game Boy Color with slight discoloration",
-        imageUrl: "https://i.ibb.co/K7s6R3t/gameboy-purple.jpg",
+        imageUrl: "https://www.retroplace.com/pics/gameboy/versions/118246_pic0.jpg",
         isReserved: true,
         shippingAvailable: true
       },
@@ -86,7 +86,7 @@ export class MemStorage implements IStorage {
         name: "Zelda Oracle of Ages - GBC",
         price: 4500, // €45.00
         description: "The Legend of Zelda: Oracle of Ages for Game Boy Color - EU version",
-        imageUrl: "https://i.ibb.co/DG6VC1p/zelda-oracle.jpg",
+        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GBC/GBC_LEGEND_OF_ZELDA_ORACLE_OF_AGES_CART.jpg",
         isReserved: false,
         shippingAvailable: true
       },
@@ -94,7 +94,7 @@ export class MemStorage implements IStorage {
         name: "Super Mario Land 2 - Game Boy",
         price: 3200, // €32.00
         description: "Super Mario Land 2: 6 Golden Coins for original Game Boy",
-        imageUrl: "https://i.ibb.co/z4HwyHN/mario-land-2.jpg",
+        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GB/GB_SUPER_MARIO_LAND_2_6_GOLDEN_COINS_CART.jpg",
         isReserved: false,
         shippingAvailable: false
       },
@@ -102,7 +102,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Camera - Green",
         price: 6500, // €65.00
         description: "Original Nintendo Game Boy Camera in green color, fully functional",
-        imageUrl: "https://i.ibb.co/CVyQZp6/gameboy-camera.jpg",
+        imageUrl: "https://m.media-amazon.com/images/I/61KRWmJ44yL._AC_UF1000,1000_QL80_.jpg",
         isReserved: false,
         shippingAvailable: true
       },
