@@ -110,7 +110,7 @@ export class MemStorage implements IStorage {
         name: "Wario Land 3 - Game Boy Color",
         price: 3800, // €38.00
         description: "Wario Land 3 for Game Boy Color - Japanese version but plays in any GBC",
-        imageUrl: "https://i.ibb.co/5BQHwJw/wario-land.jpg",
+        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GBC/GBC_WARIO_LAND_3_CART.jpg",
         isReserved: true,
         shippingAvailable: true
       }
