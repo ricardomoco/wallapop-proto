@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useRoute, Link, useLocation } from "wouter";
+import { useRoute, Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { type ProductResponse } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
+import { Heart, Share, Truck } from "lucide-react";
 
 // Mock seller data
 const sellerData = {
@@ -19,7 +20,7 @@ export default function ProductDetail() {
   const [, params] = useRoute<{ id: string }>("/product/:id");
   const productId = params?.id ? parseInt(params.id) : 0;
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showBuyButton, setShowBuyButton] = useState(true);
+  const [showBuyButton, setShowBuyButton] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   
   // Control buy button visibility based on scroll
@@ -144,37 +145,25 @@ export default function ProductDetail() {
       {/* Header */}
       <div ref={headerRef} className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="px-4 py-3 flex items-center justify-between">
-          <Link href="/">
-            <a className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-            </a>
+          <Link href="/" className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </Link>
           <div className="flex items-center space-x-3">
             <button 
               onClick={handleToggleFavorite}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow"
               aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
-              {isFavorite ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              )}
+              <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
             </button>
             <button 
               onClick={handleShare}
-              className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow"
               aria-label="Share"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
+              <Share className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -208,10 +197,7 @@ export default function ProductDetail() {
 
       {/* Shipping Info */}
       <div className="bg-white px-4 py-3 border-b flex items-center text-purple-600">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-        </svg>
+        <Truck className="h-5 w-5 mr-2" />
         <span className="font-medium">Shipping available</span>
       </div>
 
@@ -361,11 +347,21 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Buy Button */}
-      <div className="sticky bottom-0 bg-white px-4 py-3 shadow-inner">
+      {/* Fixed Buy Button (visible when scrolling) */}
+      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg transform transition-transform duration-300 ${showBuyButton ? 'translate-y-0' : 'translate-y-full'}`}>
         <button 
           onClick={handleBuy}
-          className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-md hover:bg-teal-600 transition-colors"
+          className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-full hover:bg-teal-600 transition-colors"
+        >
+          Buy
+        </button>
+      </div>
+      
+      {/* Static Buy Button (visible at bottom of page) */}
+      <div className="bg-white px-4 py-5">
+        <button 
+          onClick={handleBuy}
+          className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-full hover:bg-teal-600 transition-colors"
         >
           Buy
         </button>
