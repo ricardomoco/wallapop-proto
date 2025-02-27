@@ -76,15 +76,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
       onClick={handleCardClick}
     >
       <div className="relative">
-        <div className="aspect-square relative overflow-hidden bg-gray-50">
+        <div className="aspect-square relative overflow-hidden bg-gray-50 rounded-xl shadow-sm">
           <img 
-            src={product.imageUrl || "https://via.placeholder.com/300"}
+            src={product.imageUrl || "https://via.placeholder.com/300?text=No+Image"}
             alt={product.name}
             className="w-full h-full object-cover"
             loading="lazy"
             onError={(e) => {
               // Fallback if image fails to load
-              (e.target as HTMLImageElement).src = "https://via.placeholder.com/300";
+              (e.target as HTMLImageElement).src = "https://via.placeholder.com/300?text=No+Image";
             }}
           />
         </div>

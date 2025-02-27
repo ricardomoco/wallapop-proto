@@ -54,7 +54,7 @@ export class MemStorage implements IStorage {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://retromags.com/uploads/gallery/album_1494/gallery_12723_1494_207998.png", 
+        imageUrl: "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.25/c_scale,w_300/ncom/en_US/games/game-boy/p/pokemon-blue-version-game-boy/screenshot-gallery/screenshot01", 
         isReserved: false,
         shippingAvailable: true
       },
@@ -62,7 +62,7 @@ export class MemStorage implements IStorage {
         name: "Gameboy Color Transparent",
         price: 9000, // €90.00
         description: "Transparent Game Boy Color in excellent working condition",
-        imageUrl: "https://nintendosegajapan.com/wp-content/uploads/2020/05/game-boy-color-transparent-1.jpg",
+        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5RuIjGMPye6xA7-kjFdbhSKU1ZZ4YV4T9NQR3JeN8&s",
         isReserved: false,
         shippingAvailable: true
       },
@@ -70,7 +70,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color (Lime Green)",
         price: 7000, // €70.00
         description: "Lime Green Game Boy Color, minor scratches but works perfectly",
-        imageUrl: "https://www.retroplace.com/pics/gameboy/versions/118208_pic0.jpg",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nintendo_gameboy_color_lime_green.jpg/220px-Nintendo_gameboy_color_lime_green.jpg",
         isReserved: false,
         shippingAvailable: true
       },
@@ -78,39 +78,39 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color Transparent Purple",
         price: 2500, // €25.00
         description: "Transparent Purple Game Boy Color with slight discoloration",
-        imageUrl: "https://www.retroplace.com/pics/gameboy/versions/118246_pic0.jpg",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Nintendo-Game-Boy-Color-FL.jpg/250px-Nintendo-Game-Boy-Color-FL.jpg",
         isReserved: true,
         shippingAvailable: true
       },
       {
         name: "Zelda Oracle of Ages - GBC",
         price: 4500, // €45.00
-        description: "The Legend of Zelda: Oracle of Ages for Game Boy Color - EU version",
-        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GBC/GBC_LEGEND_OF_ZELDA_ORACLE_OF_AGES_CART.jpg",
+        description: "The Legend of Zelda: Oracle of Ages for Game Boy Color - EU version, complete in box with manual. Perfect condition and tested working. A must-have for any Zelda collector!",
+        imageUrl: "https://i.imgur.com/15wbN0e.jpg",
         isReserved: false,
         shippingAvailable: true
       },
       {
         name: "Super Mario Land 2 - Game Boy",
         price: 3200, // €32.00
-        description: "Super Mario Land 2: 6 Golden Coins for original Game Boy",
-        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GB/GB_SUPER_MARIO_LAND_2_6_GOLDEN_COINS_CART.jpg",
+        description: "Super Mario Land 2: 6 Golden Coins for original Game Boy. Authentic cartridge in excellent condition. Battery save still works perfectly!",
+        imageUrl: "https://i.imgur.com/WXueBVn.jpg",
         isReserved: false,
         shippingAvailable: false
       },
       {
-        name: "Game Boy Camera - Green",
+        name: "Game Boy Color - Lime Green",
         price: 6500, // €65.00
-        description: "Original Nintendo Game Boy Camera in green color, fully functional",
-        imageUrl: "https://m.media-amazon.com/images/I/61KRWmJ44yL._AC_UF1000,1000_QL80_.jpg",
+        description: "Original Nintendo Game Boy Color in lime green. Console is in great condition with minor signs of use. All buttons responsive, screen is clear with no dead pixels. Battery cover intact.",
+        imageUrl: "https://i.imgur.com/OpK0mEm.jpg",
         isReserved: false,
         shippingAvailable: true
       },
       {
         name: "Wario Land 3 - Game Boy Color",
         price: 3800, // €38.00
-        description: "Wario Land 3 for Game Boy Color - Japanese version but plays in any GBC",
-        imageUrl: "https://images.lukiegames.com/t_300e2/assets/images/GBC/GBC_WARIO_LAND_3_CART.jpg",
+        description: "Wario Land 3 for Game Boy Color - Japanese version but plays in any GBC. Cart only, tested and working perfectly. Label in excellent condition with vibrant colors.",
+        imageUrl: "https://i.imgur.com/91DLVCa.jpg",
         isReserved: true,
         shippingAvailable: true
       }

@@ -186,7 +186,7 @@ export default function ProductDetail() {
       <div className="flex-1 bg-white">
         {/* Product Image - Full width */}
         <div className="relative w-full">
-          <div className="aspect-square pt-12">
+          <div className="aspect-square pt-12 overflow-hidden rounded-b-xl shadow-sm">
             <img 
               src={product.imageUrl || "https://via.placeholder.com/500x500?text=No+Image"} 
               alt={product.name} 
