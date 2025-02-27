@@ -283,7 +283,7 @@ export default function ProductDetail() {
         </div>
         
         {/* Popular Item Callout */}
-        <div className="px-4 py-2 border-b bg-gray-100">
+        <div className="px-4 py-3.5 border-b bg-gray-100">
           <div className="flex items-center">
             <div className="bg-amber-500 text-white p-1.5 rounded-full mr-3 flex items-center justify-center">
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
