@@ -20,21 +20,8 @@ export default function ProductDetail() {
   const [, params] = useRoute<{ id: string }>("/product/:id");
   const productId = params?.id ? parseInt(params.id) : 0;
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showBuyButton, setShowBuyButton] = useState(false);
+  // The Buy button is now always fixed at the bottom, so we don't need scroll tracking
   const headerRef = useRef<HTMLDivElement>(null);
-  
-  // Control buy button visibility based on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (headerRef.current) {
-        // Show button when scrolling down, hide at the top
-        setShowBuyButton(window.scrollY > 100);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
   
   // Fetch product detail
   const { data: product, isLoading } = useQuery<ProductResponse>({
@@ -355,8 +342,8 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Fixed Buy Button (visible when scrolling) */}
-      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-sm border-t shadow-lg transform transition-transform duration-300 ${showBuyButton ? 'translate-y-0' : 'translate-y-full'}`}>
+      {/* Fixed Buy Button (always visible) */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-sm border-t shadow-lg">
         <button 
           onClick={handleBuy}
           className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-full hover:bg-teal-600 transition-colors"
@@ -365,15 +352,8 @@ export default function ProductDetail() {
         </button>
       </div>
       
-      {/* Static Buy Button (visible at bottom of page) */}
-      <div className="bg-white px-4 py-5">
-        <button 
-          onClick={handleBuy}
-          className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-full hover:bg-teal-600 transition-colors"
-        >
-          Buy
-        </button>
-      </div>
+      {/* Empty space to prevent content from being hidden behind the fixed button */}
+      <div className="h-24"></div>
     </div>
   );
 }
