@@ -56,14 +56,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
   const isPending = addToFavoritesMutation.isPending || removeFromFavoritesMutation.isPending;
   
   return (
-    <div className="bg-white overflow-hidden shadow-sm transition-all duration-200 hover:shadow-md active:scale-[0.99]">
+    <div className="overflow-hidden" style={{ maxWidth: "100%" }}>
       <div className="relative">
         <div className="aspect-square relative overflow-hidden bg-gray-50">
           <img 
-            src={product.imageUrl}
+            src={product.imageUrl || "https://via.placeholder.com/300"}
             alt={product.name}
-            className="w-full h-full object-cover absolute inset-0"
+            className="w-full h-full object-cover"
             loading="lazy"
+            onError={(e) => {
+              // Fallback if image fails to load
+              (e.target as HTMLImageElement).src = "https://via.placeholder.com/300";
+            }}
           />
         </div>
         
@@ -94,13 +98,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
         </button>
       </div>
       
-      <div className="mt-2">
-        <div className="flex justify-between items-center mb-0">
+      <div className="pt-2 pb-1">
+        <div className="flex justify-between items-center">
           <div className="text-lg font-bold">{product.formattedPrice}</div>
           <button
             onClick={handleToggleFavorite}
             disabled={isPending}
-            className="h-7 w-7 flex items-center justify-center"
+            className="w-6 h-6 flex items-center justify-center"
             aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
           >
             {isFavorite ? (
@@ -115,7 +119,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
           </button>
         </div>
         
-        <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-2">{product.name}</h3>
+        <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-1">{product.name}</h3>
         
         {/* Shipping truck icon at the bottom */}
         <div className="flex items-center mt-1 text-xs text-purple-600 font-medium">

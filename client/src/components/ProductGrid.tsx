@@ -10,17 +10,22 @@ interface ProductGridProps {
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, userId }) => {
+  // For debugging - log the products data
+  React.useEffect(() => {
+    console.log("Products data:", products);
+  }, [products]);
+
   const renderSkeletons = () => {
     return Array(8).fill(0).map((_, index) => (
-      <div key={`skeleton-${index}`} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+      <div key={`skeleton-${index}`} className="bg-white overflow-hidden shadow-sm">
         <Skeleton className="w-full aspect-square bg-gray-100" />
-        <div className="p-3">
-          <div className="flex justify-between items-start mb-1">
+        <div className="mt-2">
+          <div className="flex justify-between items-start">
             <Skeleton className="h-6 w-16" />
-            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-5 w-5 rounded-full" />
           </div>
-          <Skeleton className="h-4 w-32 mb-2" />
-          <Skeleton className="h-4 w-24 mt-2" />
+          <Skeleton className="h-4 w-32 mt-1 mb-1" />
+          <Skeleton className="h-4 w-24 mt-1" />
         </div>
       </div>
     ));
@@ -42,7 +47,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading, userId }
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-3 gap-y-4 md:gap-4 pb-4 scroll-container">
+    <div className="grid grid-cols-2 gap-4 pb-4">
       {isLoading ? (
         renderSkeletons()
       ) : (

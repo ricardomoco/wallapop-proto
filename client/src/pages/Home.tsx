@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { type ProductResponse } from "@shared/schema";
 import StatusBar from "@/components/StatusBar";
@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const { toast } = useToast();
-  const [searchQuery, setSearchQuery] = useState("gameboy color");
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState(1);
   const [sortOption, setSortOption] = useState("Relevance");
   
@@ -17,10 +17,22 @@ export default function Home() {
   const userId = 1;
   
   // Fetch products with the current search query
-  const { data: products, isLoading, error } = useQuery<ProductResponse[]>({
+  const { data: products, isLoading, error, refetch } = useQuery<ProductResponse[]>({
     queryKey: ['/api/products', searchQuery, userId],
     queryFn: () => fetch(`/api/products?q=${encodeURIComponent(searchQuery)}&userId=${userId}`).then(res => res.json()),
   });
+
+  // Force a refetch when the component mounts
+  useEffect(() => {
+    refetch();
+    console.log("Home component mounted, refetching products");
+  }, [refetch]);
+  
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching products:", error);
+    }
+  }, [error]);
   
   const handleClearSearch = () => {
     setSearchQuery("");
