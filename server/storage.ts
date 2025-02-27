@@ -237,7 +237,8 @@ export class MemStorage implements IStorage {
       isReserved: Boolean(product.isReserved),
       shippingAvailable: Boolean(product.shippingAvailable),
       formattedPrice: `€${(product.price / 100).toFixed(0)}`,
-      isFavorited: userId ? favoritedProductIds.has(product.id) : false
+      isFavorited: userId ? favoritedProductIds.has(product.id) : false,
+      likesCount: Math.floor(Math.random() * 50) // Random number of likes for demo purposes
     }));
   }
 }

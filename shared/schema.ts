@@ -56,7 +56,8 @@ export const productResponseSchema = z.object({
   imageUrl: z.string(),
   isReserved: z.boolean().default(false),
   shippingAvailable: z.boolean().default(true),
-  isFavorited: z.boolean().default(false)
+  isFavorited: z.boolean().default(false),
+  likesCount: z.number().default(0)
 });
 
 export type ProductResponse = z.infer<typeof productResponseSchema>;

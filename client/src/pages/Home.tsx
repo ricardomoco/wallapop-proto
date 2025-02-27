@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { type ProductResponse } from "@shared/schema";
-import StatusBar from "@/components/StatusBar";
 import SearchBar from "@/components/SearchBar";
 import FilterSortBar from "@/components/FilterSortBar";
 import ProductGrid from "@/components/ProductGrid";
@@ -73,7 +72,7 @@ export default function Home() {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       <header className="sticky top-0 z-10 bg-white safe-area-top">
-        <StatusBar />
+
         <SearchBar 
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
