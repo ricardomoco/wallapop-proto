@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "wouter";
 import { type ProductResponse } from "@shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
@@ -12,6 +13,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [isFavorite, setIsFavorite] = useState(product.isFavorited);
   const [likesCount, setLikesCount] = useState(product.likesCount);
   
@@ -59,8 +61,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
   
   const isPending = addToFavoritesMutation.isPending || removeFromFavoritesMutation.isPending;
   
+  const handleCardClick = () => {
+    setLocation(`/product/${product.id}`);
+  };
+  
   return (
-    <div className="overflow-hidden" style={{ maxWidth: "100%" }}>
+    <div 
+      className="overflow-hidden cursor-pointer hover:opacity-95 transition-opacity" 
+      style={{ maxWidth: "100%" }} 
+      onClick={handleCardClick}
+    >
       <div className="relative">
         <div className="aspect-square relative overflow-hidden bg-gray-50">
           <img 

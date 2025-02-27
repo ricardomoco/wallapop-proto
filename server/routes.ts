@@ -38,10 +38,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ? await storage.isFavorited(userId, productId)
         : false;
       
+      // Get random likes count between 1-50 for demo purposes
+      const likesCount = Math.floor(Math.random() * 50) + 1;
+      
       res.json({
         ...product,
         formattedPrice: `€${(product.price / 100).toFixed(0)}`,
-        isFavorited
+        isFavorited,
+        likesCount
       });
     } catch (error) {
       console.error("Error fetching product:", error);
