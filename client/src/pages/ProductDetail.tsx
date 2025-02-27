@@ -156,54 +156,36 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Absolutely positioned header to overlay image with transparency */}
+      {/* Fixed white header */}
       <div 
         ref={headerRef} 
-        className="fixed top-0 left-0 right-0 z-10" 
-        style={{
-          backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
-          boxShadow: headerOpacity > 0.7 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-          transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
-        }}
+        className="fixed top-0 left-0 right-0 z-10 bg-white border-b"
       >
         <div className="px-4 py-3 flex items-center justify-between">
           <Link 
             href="/" 
-            className="w-10 h-10 flex items-center justify-center rounded-full" 
-            style={{
-              backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
-              boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
-              transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
-            }}
+            className="w-10 h-10 flex items-center justify-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             <button 
               onClick={handleToggleFavorite}
-              className="w-10 h-10 flex items-center justify-center rounded-full"
-              style={{
-                backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
-                boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
-                transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
-              }}
+              className="flex items-center space-x-1"
               aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
-              <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+              <Heart className={`h-6 w-6 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
             </button>
             <button 
               onClick={handleShare}
-              className="w-10 h-10 flex items-center justify-center rounded-full"
-              style={{
-                backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
-                boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
-                transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
-              }}
+              className="flex items-center"
               aria-label="Share"
             >
-              <Share className="h-5 w-5" />
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.68439 9.45L15.316 5.632M15.316 18.368L8.68439 14.55M21 5C21 6.65685 19.6569 8 18 8C16.3431 8 15 6.65685 15 5C15 3.34315 16.3431 2 18 2C19.6569 2 21 3.34315 21 5ZM9 12C9 13.6569 7.65685 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.65685 9 9 10.3431 9 12ZM21 19C21 20.6569 19.6569 22 18 22C16.3431 22 15 20.6569 15 19C15 17.3431 16.3431 16 18 16C19.6569 16 21 17.3431 21 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
           </div>
         </div>
@@ -211,13 +193,13 @@ export default function ProductDetail() {
 
       {/* Main Content Area - Mobile Optimized */}
       <div className="flex-1 bg-white">
-        {/* Product Image */}
-        <div className="relative w-full bg-gradient-to-b from-gray-100 to-white">
-          <div className="aspect-square flex items-center justify-center pt-16">
+        {/* Product Image - Full width */}
+        <div className="relative w-full">
+          <div className="aspect-square pt-12">
             <img 
               src={product.imageUrl || "https://via.placeholder.com/500x500?text=No+Image"} 
               alt={product.name} 
-              className="h-full w-full object-contain"
+              className="h-full w-full object-cover"
               onError={(e) => {
                 // Fallback if image fails to load
                 (e.target as HTMLImageElement).src = "https://via.placeholder.com/500x500?text=No+Image";
@@ -253,19 +235,19 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* Shipping Info */}
-        <div className="px-4 py-3 border-b flex items-center product-shipping">
-          <Truck className="h-5 w-5 mr-2" />
-          <span className="font-medium">Shipping available</span>
-        </div>
-
         {/* Payment Options - Klarna (Exactly as in IMG_2014) */}
         <div className="px-4 py-3 border-b">
           <div className="flex items-center">
+            <div className="klarna-badge bg-pink-100 rounded px-1.5 py-0.5 text-xs font-bold mr-2">Klarna</div>
             <span className="text-sm text-gray-800">Pay over 3 installments of 23,33 €.</span>
-            <div className="klarna-badge bg-pink-100 rounded px-1.5 py-0.5 text-xs font-bold mx-2">Klarna</div>
           </div>
           <button className="text-sm text-emerald-600 font-medium mt-1" onClick={() => alert("Klarna payment information")}>Learn more</button>
+        </div>
+        
+        {/* Shipping Info */}
+        <div className="px-4 py-3 border-t border-b flex items-center product-shipping">
+          <Truck className="h-5 w-5 mr-2" />
+          <span className="font-medium">Shipping available</span>
         </div>
         
         {/* Seller Information - Exactly as in IMG_2014 */}
