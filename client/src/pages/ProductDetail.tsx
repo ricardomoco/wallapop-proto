@@ -356,7 +356,7 @@ export default function ProductDetail() {
       </div>
 
       {/* Fixed Buy Button (visible when scrolling) */}
-      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-white border-t shadow-lg transform transition-transform duration-300 ${showBuyButton ? 'translate-y-0' : 'translate-y-full'}`}>
+      <div className={`fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-sm border-t shadow-lg transform transition-transform duration-300 ${showBuyButton ? 'translate-y-0' : 'translate-y-full'}`}>
         <button 
           onClick={handleBuy}
           className="w-full py-3 px-4 bg-teal-500 text-white font-medium rounded-full hover:bg-teal-600 transition-colors"
