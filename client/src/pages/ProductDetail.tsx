@@ -173,9 +173,13 @@ export default function ProductDetail() {
       <div className="bg-white">
         <div className="relative aspect-square">
           <img 
-            src={product.imageUrl} 
+            src={product.imageUrl || "https://via.placeholder.com/500x500?text=No+Image"} 
             alt={product.name} 
             className="w-full h-full object-contain"
+            onError={(e) => {
+              // Fallback if image fails to load
+              (e.target as HTMLImageElement).src = "https://via.placeholder.com/500x500?text=No+Image";
+            }}
           />
         </div>
       </div>
@@ -207,7 +211,7 @@ export default function ProductDetail() {
           <div className="bg-white rounded px-1 py-0.5 text-xs font-bold mr-2">Klarna</div>
           <div>
             <div className="text-sm">Pay over 3 installments of 23,33 €.</div>
-            <a href="#" className="text-sm text-emerald-600 font-medium">Learn more</a>
+            <button className="text-sm text-emerald-600 font-medium" onClick={() => alert("Klarna payment information")}>Learn more</button>
           </div>
         </div>
       </div>
@@ -217,9 +221,13 @@ export default function ProductDetail() {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <img 
-              src={sellerData.avatar}
+              src={sellerData.avatar || "https://via.placeholder.com/100x100?text=Seller"}
               alt={sellerData.name}
               className="h-12 w-12 rounded-full object-cover mr-3"
+              onError={(e) => {
+                // Fallback if seller avatar fails to load
+                (e.target as HTMLImageElement).src = "https://via.placeholder.com/100x100?text=Seller";
+              }}
             />
             <div>
               <div className="font-medium">{sellerData.name}</div>
@@ -240,7 +248,7 @@ export default function ProductDetail() {
                   </svg>
                   <span>{sellerData.salesCount} Sales</span>
                 </div>
-                <a href="#" className="text-teal-600">4 reviews</a>
+                <button className="text-teal-600" onClick={() => alert("Seller reviews")}>4 reviews</button>
               </div>
             </div>
           </div>
@@ -309,14 +317,14 @@ export default function ProductDetail() {
           </svg>
           <div>
             <p className="text-sm">Buying items like this one saves, on average, the use of <strong>605 liters of water</strong></p>
-            <a href="#" className="text-sm text-teal-600 font-medium">Learn how</a>
+            <button className="text-sm text-teal-600 font-medium" onClick={() => alert("Sustainability information")}>Learn how</button>
           </div>
         </div>
       </div>
 
       {/* Delivery Options */}
       <div className="bg-white px-4 py-3 border-b">
-        <h3 className="font-medium mb-3">Delivery in 3 - 7 days <a href="#" className="text-teal-600 text-sm float-right">+ info</a></h3>
+        <h3 className="font-medium mb-3">Delivery in 3 - 7 days <button className="text-teal-600 text-sm float-right" onClick={() => alert("Delivery information")}>+ info</button></h3>
         
         <div className="space-y-3">
           <div className="flex items-center justify-between">
