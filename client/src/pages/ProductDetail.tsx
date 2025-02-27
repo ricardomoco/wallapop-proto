@@ -170,14 +170,7 @@ export default function ProductDetail() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <div className="flex items-center space-x-4">
-            <button 
-              onClick={handleToggleFavorite}
-              className="flex items-center space-x-1"
-              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-            >
-              <Heart className={`h-6 w-6 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
-            </button>
+          <div className="flex items-center">
             <button 
               onClick={handleShare}
               className="flex items-center"
@@ -215,7 +208,7 @@ export default function ProductDetail() {
             <div className="flex items-center">
               <button 
                 onClick={handleToggleFavorite}
-                className="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-100"
+                className="flex items-center space-x-1 px-3 py-1.5 rounded-full shadow-md bg-white"
                 aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
               >
                 <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
