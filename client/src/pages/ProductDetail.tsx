@@ -22,6 +22,21 @@ export default function ProductDetail() {
   const [isFavorite, setIsFavorite] = useState(false);
   
   const headerRef = useRef<HTMLDivElement>(null);
+  const [headerOpacity, setHeaderOpacity] = useState(0);
+  
+  // Control header transparency based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate opacity based on scroll position (0 at top, 1 at image mid-point)
+      const imageHeight = window.innerWidth; // assuming square aspect ratio
+      const scrollThreshold = imageHeight / 2;
+      const opacity = Math.min(1, window.scrollY / scrollThreshold);
+      setHeaderOpacity(opacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   // Fetch product detail
   const { data: product, isLoading } = useQuery<ProductResponse>({
@@ -129,8 +144,16 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Header */}
-      <div ref={headerRef} className="sticky top-0 z-10 bg-white shadow-sm">
+      {/* Header with dynamic opacity */}
+      <div 
+        ref={headerRef} 
+        className="sticky top-0 z-10" 
+        style={{
+          backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
+          boxShadow: headerOpacity > 0 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+          transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
+        }}
+      >
         <div className="px-4 py-3 flex items-center justify-between">
           <Link href="/" className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -138,13 +161,6 @@ export default function ProductDetail() {
             </svg>
           </Link>
           <div className="flex items-center space-x-3">
-            <button 
-              onClick={handleToggleFavorite}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow"
-              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-            >
-              <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
-            </button>
             <button 
               onClick={handleShare}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow"
@@ -175,7 +191,19 @@ export default function ProductDetail() {
 
         {/* Price and Title */}
         <div className="px-4 py-3 border-b">
-          <div className="wallapop-price text-3xl font-bold mb-2">{product.formattedPrice}</div>
+          <div className="flex items-center justify-between mb-2">
+            <div className="wallapop-price text-3xl font-bold">{product.formattedPrice}</div>
+            <div className="flex items-center">
+              <button 
+                onClick={handleToggleFavorite}
+                className="flex items-center space-x-1 px-3 py-1 rounded-full hover:bg-gray-100"
+                aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              >
+                <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
+                <span className="text-sm text-gray-500">{product.likesCount || 25}</span>
+              </button>
+            </div>
+          </div>
           <h1 className="text-xl mb-2">{product.name} – Tested & Working! 🎮</h1>
           <div className="flex flex-wrap gap-x-1 text-sm text-gray-600">
             <span>Good condition</span>
