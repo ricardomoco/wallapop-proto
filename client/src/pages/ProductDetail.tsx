@@ -156,13 +156,13 @@ export default function ProductDetail() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Absolute positioned header to overlay image */}
+      {/* Absolutely positioned header to overlay image with transparency */}
       <div 
         ref={headerRef} 
         className="fixed top-0 left-0 right-0 z-10" 
         style={{
-          backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
-          boxShadow: headerOpacity > 0 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+          backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
+          boxShadow: headerOpacity > 0.7 ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
           transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
         }}
       >
@@ -171,8 +171,8 @@ export default function ProductDetail() {
             href="/" 
             className="w-10 h-10 flex items-center justify-center rounded-full" 
             style={{
-              backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
-              boxShadow: `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})`,
+              backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
+              boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
               transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
             }}
           >
@@ -182,11 +182,23 @@ export default function ProductDetail() {
           </Link>
           <div className="flex items-center space-x-3">
             <button 
+              onClick={handleToggleFavorite}
+              className="w-10 h-10 flex items-center justify-center rounded-full"
+              style={{
+                backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
+                boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
+                transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
+              }}
+              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+              <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+            </button>
+            <button 
               onClick={handleShare}
               className="w-10 h-10 flex items-center justify-center rounded-full"
               style={{
-                backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
-                boxShadow: `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})`,
+                backgroundColor: headerOpacity > 0 ? `rgba(255, 255, 255, ${headerOpacity})` : 'transparent',
+                boxShadow: headerOpacity > 0.5 ? `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})` : 'none',
                 transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
               }}
               aria-label="Share"
@@ -247,18 +259,16 @@ export default function ProductDetail() {
           <span className="font-medium">Shipping available</span>
         </div>
 
-        {/* Payment Options */}
+        {/* Payment Options - Klarna (Exactly as in IMG_2014) */}
         <div className="px-4 py-3 border-b">
-          <div className="bg-pink-50 px-3 py-2 rounded-md flex items-center mb-3">
-            <div className="klarna-badge bg-white rounded px-1 py-0.5 text-xs font-bold mr-2">Klarna</div>
-            <div className="flex-1">
-              <div className="text-sm">Pay over 3 installments of 23,33 €.</div>
-              <button className="text-sm text-emerald-600 font-medium" onClick={() => alert("Klarna payment information")}>Learn more</button>
-            </div>
+          <div className="flex items-center">
+            <span className="text-sm text-gray-800">Pay over 3 installments of 23,33 €.</span>
+            <div className="klarna-badge bg-pink-100 rounded px-1.5 py-0.5 text-xs font-bold mx-2">Klarna</div>
           </div>
+          <button className="text-sm text-emerald-600 font-medium mt-1" onClick={() => alert("Klarna payment information")}>Learn more</button>
         </div>
         
-        {/* Seller Information */}
+        {/* Seller Information - Exactly as in IMG_2014 */}
         <div className="px-4 py-3 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
@@ -270,86 +280,114 @@ export default function ProductDetail() {
                 />
               </div>
               <div>
-                <h3 className="font-medium">{sellerData.name}</h3>
-                <div className="flex items-center text-sm">
-                  <div className="flex items-center text-yellow-500 mr-2">
+                <h3 className="font-medium text-base">Moonlight S.</h3>
+                <div className="flex items-center">
+                  <div className="flex items-center text-yellow-400">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <svg key={i} className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
+                    <span className="ml-1 text-gray-700 text-sm">5 (4)</span>
                   </div>
-                  <span className="text-gray-600">{sellerData.ratingCount} ratings</span>
                 </div>
+                <div className="flex items-center mt-1">
+                  <svg className="h-4 w-4 text-pink-500 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-sm text-gray-600">5 Sales</span>
+                </div>
+                <a href="#" className="text-emerald-600 text-sm font-medium">4 reviews</a>
               </div>
             </div>
             <button 
               onClick={handleChat}
-              className="flex items-center justify-center space-x-1 px-3 py-2 font-medium text-emerald-600"
+              className="border border-emerald-500 rounded-full px-5 py-2 font-medium text-emerald-600"
             >
-              <MessageCircle className="h-4 w-4 mr-1" />
-              <span>Chat</span>
+              Chat
             </button>
-          </div>
-          <div className="mt-3 text-sm text-gray-600">
-            <span>Seller since 2022</span>
-            <span className="mx-2">·</span>
-            <span>{sellerData.salesCount} sales</span>
           </div>
         </div>
         
-        {/* Product Description */}
+        {/* Product Description - Styled as in IMG_2014 */}
         <div className="px-4 py-3 border-b">
-          <h3 className="font-medium mb-2">Description</h3>
-          <p className="text-sm text-gray-700 whitespace-pre-line">
-            {product.description}
-            
-            This authentic Nintendo Game Boy Color has been fully tested and is in great working condition! Every button and feature has been checked.
-            
-            • Excellent battery life
-            • Clean and disinfected
-            • Original hardware, no modifications
-            • Comes with protective case
+          <p className="text-gray-800 leading-relaxed">
+            Get your hands on this classic Game Boy Color in a vibrant Lime Green edition! The console is in good working condition, perfect for retro gaming enthusiasts and collectors. The screen, buttons, and sound are fully functional.
+          </p>
+          <p className="text-gray-800 mt-4 leading-relaxed">
+            🚀 Important Notes:
+          </p>
+          <ul className="mt-2 space-y-2">
+            <li className="flex items-start">
+              <span className="inline-block bg-green-500 text-white rounded p-0.5 mr-2 mt-0.5">✓</span>
+              <span>Game NOT included (shown for display purposes only).</span>
+            </li>
+            <li className="flex items-start">
+              <span className="inline-block bg-green-500 text-white rounded p-0.5 mr-2 mt-0.5">✓</span>
+              <span>Back cover is missing (battery compartment visible).</span>
+            </li>
+            <li className="flex items-start">
+              <span className="inline-block bg-green-500 text-white rounded p-0.5 mr-2 mt-0.5">✓</span>
+              <span>Some minor signs of use, but plays games perfectly!</span>
+            </li>
+          </ul>
+        </div>
+        
+        {/* Extra Info - Shipping Callout - as in IMG_2015 */}
+        <div className="px-4 py-3 border-b">
+          <p className="text-gray-800 leading-relaxed flex items-center">
+            <span className="text-amber-800 mr-2">📦</span>
+            Fast shipping available! Don't miss out—grab this piece of gaming history today!
           </p>
         </div>
         
-        {/* Sustainability Row */}
+        {/* Sustainability Row - Exactly as in IMG_2015 */}
         <div className="px-4 py-3 border-b">
-          <div className="flex items-start">
-            <div className="bg-emerald-100 rounded-full p-2 mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          <div className="bg-lime-100 px-4 py-3 rounded-md flex items-start">
+            <div className="mr-3 text-emerald-600">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </div>
-            <div>
-              <h3 className="font-medium text-emerald-600">Making a positive impact</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                By buying this pre-owned item, you're extending its life and reducing waste. Second-hand shopping can help reduce CO2 emissions by up to 82%.
+            <div className="flex-1">
+              <p className="text-sm">
+                Buying items like this one saves, on average, the use of <span className="font-bold">605 liters of water</span>
               </p>
+              <a href="#" className="text-sm text-emerald-600 font-medium">Learn how</a>
             </div>
           </div>
         </div>
         
-        {/* Delivery Information */}
+        {/* Delivery Information - Exactly as in IMG_2015 */}
         <div className="px-4 py-3 border-b">
-          <h3 className="font-medium mb-2">Delivery options</h3>
-          <div className="flex flex-col space-y-3">
+          <h3 className="font-medium mb-3">Delivery in 3 - 7 days <span className="text-emerald-600 float-right">+ info</span></h3>
+          
+          <div className="flex items-center justify-between mb-3 py-2 border-b">
             <div className="flex items-center">
-              <Truck className="h-5 w-5 mr-3 text-purple-600" />
+              <div className="bg-red-600 text-white px-1.5 py-0.5 text-xs mr-3">ctt</div>
               <div>
-                <p className="font-medium">Shipping</p>
-                <p className="text-sm text-gray-600">Estimated delivery: 3-5 business days</p>
+                <p className="text-sm">At a pick up point <span className="font-medium">from €3,39</span></p>
               </div>
             </div>
+            <div>
+              <a href="#" className="text-emerald-600 text-sm">See nearby pick up points</a>
+            </div>
+          </div>
+          
+          <div className="flex items-center justify-between py-2">
             <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <div>
-                <p className="font-medium">Meet up</p>
-                <p className="text-sm text-gray-600">Barcelona, Spain</p>
+              <div className="border border-gray-300 rounded p-1 mr-3">
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
+              <div>
+                <p className="text-sm">At my address <span className="font-medium">from €4,29</span></p>
+              </div>
+            </div>
+            <div>
+              <a href="#" className="text-emerald-600 text-sm">Send to 4450-349 MATOSINHOS</a>
             </div>
           </div>
         </div>
@@ -358,11 +396,11 @@ export default function ProductDetail() {
         <div className="h-24 safe-area-bottom"></div>
       </div>
 
-      {/* Fixed Buy Button (always visible) */}
+      {/* Fixed Buy Button (always visible) - Matching the images */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-sm border-t shadow-lg safe-area-bottom">
         <button 
           onClick={handleBuy}
-          className="wallapop-btn wallapop-btn-teal w-full py-3 px-4 text-white font-medium rounded-full"
+          className="w-full py-3 px-4 text-white font-medium rounded-full bg-emerald-500 hover:bg-emerald-600 transition-colors"
         >
           Buy
         </button>
