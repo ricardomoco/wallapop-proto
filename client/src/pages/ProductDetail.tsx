@@ -62,7 +62,9 @@ export default function ProductDetail() {
         body: JSON.stringify({ userId, productId })
       }).then(res => res.json()),
     onSuccess: () => {
+      // Invalidate both the specific product and the products list to keep everything in sync
       queryClient.invalidateQueries({ queryKey: ['/api/products', productId] });
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
       toast({
         title: "Added to favorites",
         description: `${product?.name} has been added to your favorites`,
@@ -79,7 +81,9 @@ export default function ProductDetail() {
         body: JSON.stringify({ userId, productId })
       }).then(res => res.json()),
     onSuccess: () => {
+      // Invalidate both the specific product and the products list to keep everything in sync
       queryClient.invalidateQueries({ queryKey: ['/api/products', productId] });
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
       toast({
         title: "Removed from favorites",
         description: `${product?.name} has been removed from your favorites`,
@@ -89,11 +93,13 @@ export default function ProductDetail() {
   });
   
   const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    
     if (!isFavorite) {
+      // Update the local state immediately for responsiveness
+      setIsFavorite(true);
       addToFavoritesMutation.mutate();
     } else {
+      // Update the local state immediately for responsiveness
+      setIsFavorite(false);
       removeFromFavoritesMutation.mutate();
     }
   };
@@ -155,7 +161,15 @@ export default function ProductDetail() {
         }}
       >
         <div className="px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow">
+          <Link 
+            href="/" 
+            className="w-10 h-10 flex items-center justify-center rounded-full" 
+            style={{
+              backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
+              boxShadow: `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})`,
+              transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
+            }}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -163,7 +177,12 @@ export default function ProductDetail() {
           <div className="flex items-center space-x-3">
             <button 
               onClick={handleShare}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow"
+              className="w-10 h-10 flex items-center justify-center rounded-full"
+              style={{
+                backgroundColor: `rgba(255, 255, 255, ${headerOpacity})`,
+                boxShadow: `0 1px 3px rgba(0,0,0,${headerOpacity * 0.1})`,
+                transition: 'background-color 0.3s ease, box-shadow 0.3s ease'
+              }}
               aria-label="Share"
             >
               <Share className="h-5 w-5" />
@@ -200,7 +219,7 @@ export default function ProductDetail() {
                 aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
               >
                 <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-500'}`} />
-                <span className="text-sm text-gray-500">{product.likesCount || 25}</span>
+                <span className="text-sm text-gray-500">{product.likesCount || 0}</span>
               </button>
             </div>
           </div>

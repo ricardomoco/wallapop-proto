@@ -21,7 +21,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
     mutationFn: () => 
       apiRequest("POST", "/api/favorites", { userId, productId: product.id }),
     onSuccess: () => {
+      // Invalidate both the general products list and the specific product
       queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/products', product.id] });
       toast({
         title: "Added to favorites",
         description: `${product.name} has been added to your favorites`,
@@ -34,7 +36,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
     mutationFn: () => 
       apiRequest("DELETE", "/api/favorites", { userId, productId: product.id }),
     onSuccess: () => {
+      // Invalidate both the general products list and the specific product
       queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/products', product.id] });
       toast({
         title: "Removed from favorites",
         description: `${product.name} has been removed from your favorites`,
@@ -47,13 +51,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
     e.preventDefault();
     e.stopPropagation();
     
-    setIsFavorite(!isFavorite);
-    
-    // Update likes count when toggling favorite status
+    // Update local state immediately for responsive UI
     if (!isFavorite) {
+      setIsFavorite(true);
       setLikesCount(prevCount => prevCount + 1);
       addToFavoritesMutation.mutate();
     } else {
+      setIsFavorite(false);
       setLikesCount(prevCount => Math.max(0, prevCount - 1)); // Ensure count doesn't go below 0
       removeFromFavoritesMutation.mutate();
     }
