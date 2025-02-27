@@ -81,10 +81,8 @@ export default function ProductDetail() {
   
   const removeFromFavoritesMutation = useMutation({
     mutationFn: () => 
-      fetch("/api/favorites", {
+      fetch(`/api/favorites?userId=${userId}&productId=${productId}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, productId })
       }).then(res => res.json()),
     onSuccess: () => {
       // Invalidate both the specific product and the products list to keep everything in sync
@@ -99,14 +97,14 @@ export default function ProductDetail() {
   });
   
   const handleToggleFavorite = () => {
-    if (!isFavorite) {
-      // Update the local state immediately for responsiveness
-      setIsFavorite(true);
-      addToFavoritesMutation.mutate();
-    } else {
+    if (isFavorite) {
       // Update the local state immediately for responsiveness
       setIsFavorite(false);
       removeFromFavoritesMutation.mutate();
+    } else {
+      // Update the local state immediately for responsiveness
+      setIsFavorite(true);
+      addToFavoritesMutation.mutate();
     }
   };
 
@@ -201,7 +199,7 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* Price and Title */}
+        {/* Price and Title with Shipping Info */}
         <div className="px-4 py-3 border-b">
           <div className="flex items-center justify-between mb-2">
             <div className="wallapop-price text-3xl font-bold">{product.formattedPrice}</div>
@@ -217,7 +215,7 @@ export default function ProductDetail() {
             </div>
           </div>
           <h1 className="text-xl mb-2">{product.name} – Tested & Working! 🎮</h1>
-          <div className="flex flex-wrap gap-x-1 text-sm text-gray-600">
+          <div className="flex flex-wrap gap-x-1 text-sm text-gray-600 mb-3">
             <span>Good condition</span>
             <span>·</span>
             <span>Nintendo</span>
@@ -225,6 +223,12 @@ export default function ProductDetail() {
             <span>Nintendo Game Boy Color</span>
             <span>·</span>
             <span>Green</span>
+          </div>
+          
+          {/* Shipping Info - Moved inside price container */}
+          <div className="flex items-center product-shipping">
+            <Truck className="h-5 w-5 mr-2" />
+            <span className="font-medium">Shipping available</span>
           </div>
         </div>
 
@@ -235,12 +239,6 @@ export default function ProductDetail() {
             <span className="text-sm text-gray-800">Pay over 3 installments of 23,33 €.</span>
           </div>
           <button className="text-sm text-emerald-600 font-medium mt-1" onClick={() => alert("Klarna payment information")}>Learn more</button>
-        </div>
-        
-        {/* Shipping Info */}
-        <div className="px-4 py-3 border-t border-b flex items-center product-shipping">
-          <Truck className="h-5 w-5 mr-2" />
-          <span className="font-medium">Shipping available</span>
         </div>
         
         {/* Seller Information - Exactly as in IMG_2014 */}
