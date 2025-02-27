@@ -13,6 +13,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
   const { toast } = useToast();
   const [isFavorite, setIsFavorite] = useState(product.isFavorited);
+  const [likesCount, setLikesCount] = useState(product.likesCount);
   
   const addToFavoritesMutation = useMutation({
     mutationFn: () => 
@@ -46,9 +47,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
     
     setIsFavorite(!isFavorite);
     
+    // Update likes count when toggling favorite status
     if (!isFavorite) {
+      setLikesCount(prevCount => prevCount + 1);
       addToFavoritesMutation.mutate();
     } else {
+      setLikesCount(prevCount => Math.max(0, prevCount - 1)); // Ensure count doesn't go below 0
       removeFromFavoritesMutation.mutate();
     }
   };
@@ -84,27 +88,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userId }) => {
       <div className="pt-2 pb-1">
         <div className="flex justify-between items-center">
           <div className="text-lg font-bold">{product.formattedPrice}</div>
-          <div className="flex items-center gap-1">
-            <div className="text-xs font-medium text-gray-500 shadow-sm bg-gray-50 px-2 py-0.5 rounded-full">
-              {product.likesCount} likes
-            </div>
-            <button
-              onClick={handleToggleFavorite}
-              disabled={isPending}
-              className="w-6 h-6 flex items-center justify-center shadow-sm rounded-full bg-white"
-              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-            >
-              {isFavorite ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              )}
-            </button>
-          </div>
+          <button
+            onClick={handleToggleFavorite}
+            disabled={isPending}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-full shadow-sm border transition-colors ${
+              isFavorite 
+                ? 'bg-red-50 border-red-100' 
+                : 'bg-white border-gray-200'
+            }`}
+            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          >
+            {isFavorite ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            )}
+            <span className={`text-xs font-medium ${isFavorite ? 'text-red-500' : 'text-gray-500'}`}>
+              {likesCount}
+            </span>
+          </button>
         </div>
         
         <h3 className="text-sm font-medium text-gray-900 mb-1 line-clamp-1">{product.name}</h3>
