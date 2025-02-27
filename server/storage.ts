@@ -54,7 +54,7 @@ export class MemStorage implements IStorage {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.25/c_scale,w_300/ncom/en_US/games/game-boy/p/pokemon-blue-version-game-boy/screenshot-gallery/screenshot01", 
+        imageUrl: "https://ucarecdn.com/b00d2f1c-faee-44c9-86ca-a127c31466b9/-/scale_crop/500x500/", 
         isReserved: false,
         shippingAvailable: true
       },
@@ -62,7 +62,7 @@ export class MemStorage implements IStorage {
         name: "Gameboy Color Transparent",
         price: 9000, // €90.00
         description: "Transparent Game Boy Color in excellent working condition",
-        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5RuIjGMPye6xA7-kjFdbhSKU1ZZ4YV4T9NQR3JeN8&s",
+        imageUrl: "https://ucarecdn.com/6cef62fc-ac44-4a30-9499-e714750edbea/-/scale_crop/500x500/",
         isReserved: false,
         shippingAvailable: true
       },
@@ -78,7 +78,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color Transparent Purple",
         price: 2500, // €25.00
         description: "Transparent Purple Game Boy Color with slight discoloration",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Nintendo-Game-Boy-Color-FL.jpg/250px-Nintendo-Game-Boy-Color-FL.jpg",
+        imageUrl: "https://ucarecdn.com/39608923-c501-4d19-8c28-031c7c12ba4a/-/scale_crop/500x500/",
         isReserved: true,
         shippingAvailable: true
       },
