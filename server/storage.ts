@@ -232,10 +232,10 @@ export class MemStorage implements IStorage {
       name: product.name,
       price: product.price,
       imageUrl: product.imageUrl,
-      description: product.description,
-      // Convert nullable to non-nullable booleans
-      isReserved: product.isReserved === true,
-      shippingAvailable: product.shippingAvailable === true,
+      description: product.description || undefined,
+      // Convert nullable to non-nullable booleans 
+      isReserved: Boolean(product.isReserved),
+      shippingAvailable: Boolean(product.shippingAvailable),
       formattedPrice: `€${(product.price / 100).toFixed(0)}`,
       isFavorited: userId ? favoritedProductIds.has(product.id) : false
     }));
