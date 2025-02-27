@@ -160,7 +160,16 @@ export class MemStorage implements IStorage {
   
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
     const id = this.productIdCounter++;
-    const product: Product = { ...insertProduct, id };
+    
+    // Ensure all required fields have proper non-null values
+    const product: Product = { 
+      ...insertProduct, 
+      id,
+      description: insertProduct.description || null,
+      isReserved: insertProduct.isReserved === undefined ? false : insertProduct.isReserved,
+      shippingAvailable: insertProduct.shippingAvailable === undefined ? true : insertProduct.shippingAvailable
+    };
+    
     this.products.set(id, product);
     return product;
   }
@@ -219,7 +228,14 @@ export class MemStorage implements IStorage {
     const favoritedProductIds = new Set(userFavorites.map(fav => fav.productId));
     
     return products.map(product => ({
-      ...product,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      description: product.description,
+      // Convert nullable to non-nullable booleans
+      isReserved: product.isReserved === true,
+      shippingAvailable: product.shippingAvailable === true,
       formattedPrice: `€${(product.price / 100).toFixed(0)}`,
       isFavorited: userId ? favoritedProductIds.has(product.id) : false
     }));

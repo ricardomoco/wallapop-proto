@@ -114,7 +114,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const productIds = favorites.map(fav => fav.productId);
       
       const productPromises = productIds.map(id => storage.getProduct(id));
-      const products = (await Promise.all(productPromises)).filter(Boolean);
+      const products = (await Promise.all(productPromises)).filter(Boolean) as Product[];
       
       const formattedProducts = products.map(product => ({
         ...product,
