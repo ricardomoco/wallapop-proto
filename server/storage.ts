@@ -54,7 +54,7 @@ export class MemStorage implements IStorage {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://ucarecdn.com/39608923-c501-4d19-8c28-031c7c12ba4a/-/preview/500x500/", 
+        imageUrl: "https://ucarecdn.com/68faf7eb-2278-4906-95a2-9cff0e21a084/-/preview/910x910/", 
         isReserved: false,
         shippingAvailable: true
       },
@@ -70,7 +70,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color (Lime Green)",
         price: 7000, // €70.00
         description: "Lime Green Game Boy Color, minor scratches but works perfectly",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Nintendo_gameboy_color_lime_green.jpg/220px-Nintendo_gameboy_color_lime_green.jpg",
+        imageUrl: "https://ucarecdn.com/49b3ed6a-8c27-491a-aa34-7e04b739e1e7/-/preview/500x500/",
         isReserved: false,
         shippingAvailable: true
       },
@@ -86,7 +86,7 @@ export class MemStorage implements IStorage {
         name: "Zelda Oracle of Ages - GBC",
         price: 4500, // €45.00
         description: "The Legend of Zelda: Oracle of Ages for Game Boy Color - EU version, complete in box with manual. Perfect condition and tested working. A must-have for any Zelda collector!",
-        imageUrl: "https://i.imgur.com/15wbN0e.jpg",
+        imageUrl: "https://ucarecdn.com/68faf7eb-2278-4906-95a2-9cff0e21a084/-/preview/910x910/",
         isReserved: false,
         shippingAvailable: true
       },
@@ -94,7 +94,7 @@ export class MemStorage implements IStorage {
         name: "Super Mario Land 2 - Game Boy",
         price: 3200, // €32.00
         description: "Super Mario Land 2: 6 Golden Coins for original Game Boy. Authentic cartridge in excellent condition. Battery save still works perfectly!",
-        imageUrl: "https://i.imgur.com/WXueBVn.jpg",
+        imageUrl: "https://ucarecdn.com/68faf7eb-2278-4906-95a2-9cff0e21a084/-/preview/910x910/",
         isReserved: false,
         shippingAvailable: false
       },
@@ -102,7 +102,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color - Lime Green",
         price: 6500, // €65.00
         description: "Original Nintendo Game Boy Color in lime green. Console is in great condition with minor signs of use. All buttons responsive, screen is clear with no dead pixels. Battery cover intact.",
-        imageUrl: "https://i.imgur.com/OpK0mEm.jpg",
+        imageUrl: "https://ucarecdn.com/68faf7eb-2278-4906-95a2-9cff0e21a084/-/preview/910x910/",
         isReserved: false,
         shippingAvailable: true
       },
@@ -110,7 +110,7 @@ export class MemStorage implements IStorage {
         name: "Wario Land 3 - Game Boy Color",
         price: 3800, // €38.00
         description: "Wario Land 3 for Game Boy Color - Japanese version but plays in any GBC. Cart only, tested and working perfectly. Label in excellent condition with vibrant colors.",
-        imageUrl: "https://i.imgur.com/91DLVCa.jpg",
+        imageUrl: "https://ucarecdn.com/68faf7eb-2278-4906-95a2-9cff0e21a084/-/preview/910x910/",
         isReserved: true,
         shippingAvailable: true
       }
