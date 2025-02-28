@@ -54,7 +54,7 @@ export class MemStorage implements IStorage {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://ucarecdn.com/b00d2f1c-faee-44c9-86ca-a127c31466b9/-/resize/500x500/", 
+        imageUrl: "https://ucarecdn.com/39608923-c501-4d19-8c28-031c7c12ba4a/-/preview/500x500/", 
         isReserved: false,
         shippingAvailable: true
       },
