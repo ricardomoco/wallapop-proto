@@ -11,19 +11,19 @@ export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
+
   // Product methods
   getAllProducts(): Promise<Product[]>;
   getProduct(id: number): Promise<Product | undefined>;
   searchProducts(query: string): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
-  
+
   // Favorite methods
   getFavoritesByUserId(userId: number): Promise<Favorite[]>;
   addFavorite(favorite: InsertFavorite): Promise<Favorite>;
   removeFavorite(userId: number, productId: number): Promise<boolean>;
   isFavorited(userId: number, productId: number): Promise<boolean>;
-  
+
   // API Response formatting
   getProductsWithFavoriteStatus(userId: number | null, searchQuery?: string): Promise<ProductResponse[]>;
 }
@@ -43,18 +43,18 @@ export class MemStorage implements IStorage {
     this.userIdCounter = 1;
     this.productIdCounter = 1;
     this.favoriteIdCounter = 1;
-    
+
     // Initialize with sample products
     this.initSampleProducts();
   }
-  
+
   private initSampleProducts() {
     const sampleProducts: InsertProduct[] = [
       {
         name: "Pokémon Azul (Blue)",
         price: 2800, // €28.00
         description: "Original Pokémon Blue game cartridge in good condition",
-        imageUrl: "https://ucarecdn.com/b00d2f1c-faee-44c9-86ca-a127c31466b9/-/scale_crop/500x500/", 
+        imageUrl: "https://ucarecdn.com/b00d2f1c-faee-44c9-86ca-a127c31466b9/-/scale_crop/500x500/center/", 
         isReserved: false,
         shippingAvailable: true
       },
@@ -62,7 +62,7 @@ export class MemStorage implements IStorage {
         name: "Gameboy Color Transparent",
         price: 9000, // €90.00
         description: "Transparent Game Boy Color in excellent working condition",
-        imageUrl: "https://ucarecdn.com/6cef62fc-ac44-4a30-9499-e714750edbea/-/scale_crop/500x500/",
+        imageUrl: "https://ucarecdn.com/6cef62fc-ac44-4a30-9499-e714750edbea/-/scale_crop/500x500/center/",
         isReserved: false,
         shippingAvailable: true
       },
@@ -78,7 +78,7 @@ export class MemStorage implements IStorage {
         name: "Game Boy Color Transparent Purple",
         price: 2500, // €25.00
         description: "Transparent Purple Game Boy Color with slight discoloration",
-        imageUrl: "https://ucarecdn.com/39608923-c501-4d19-8c28-031c7c12ba4a/-/scale_crop/500x500/",
+        imageUrl: "https://ucarecdn.com/39608923-c501-4d19-8c28-031c7c12ba4a/-/scale_crop/500x500/center/",
         isReserved: true,
         shippingAvailable: true
       },
@@ -115,7 +115,7 @@ export class MemStorage implements IStorage {
         shippingAvailable: true
       }
     ];
-    
+
     sampleProducts.forEach(product => this.createProduct(product));
   }
 
@@ -136,31 +136,31 @@ export class MemStorage implements IStorage {
     this.users.set(id, user);
     return user;
   }
-  
+
   // Product methods
   async getAllProducts(): Promise<Product[]> {
     return Array.from(this.products.values());
   }
-  
+
   async getProduct(id: number): Promise<Product | undefined> {
     return this.products.get(id);
   }
-  
+
   async searchProducts(query: string): Promise<Product[]> {
     if (!query) {
       return this.getAllProducts();
     }
-    
+
     const lowerQuery = query.toLowerCase();
     return Array.from(this.products.values()).filter(product => 
       product.name.toLowerCase().includes(lowerQuery) || 
       (product.description && product.description.toLowerCase().includes(lowerQuery))
     );
   }
-  
+
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
     const id = this.productIdCounter++;
-    
+
     // Ensure all required fields have proper non-null values
     const product: Product = { 
       ...insertProduct, 
@@ -169,64 +169,64 @@ export class MemStorage implements IStorage {
       isReserved: insertProduct.isReserved === undefined ? false : insertProduct.isReserved,
       shippingAvailable: insertProduct.shippingAvailable === undefined ? true : insertProduct.shippingAvailable
     };
-    
+
     this.products.set(id, product);
     return product;
   }
-  
+
   // Favorite methods
   async getFavoritesByUserId(userId: number): Promise<Favorite[]> {
     return Array.from(this.favorites.values()).filter(
       favorite => favorite.userId === userId
     );
   }
-  
+
   async addFavorite(insertFavorite: InsertFavorite): Promise<Favorite> {
     // Check if already favorited
     const existing = Array.from(this.favorites.values()).find(
       fav => fav.userId === insertFavorite.userId && fav.productId === insertFavorite.productId
     );
-    
+
     if (existing) {
       return existing;
     }
-    
+
     const id = this.favoriteIdCounter++;
     const favorite: Favorite = { ...insertFavorite, id };
     this.favorites.set(id, favorite);
     return favorite;
   }
-  
+
   async removeFavorite(userId: number, productId: number): Promise<boolean> {
     const favorite = Array.from(this.favorites.values()).find(
       fav => fav.userId === userId && fav.productId === productId
     );
-    
+
     if (!favorite) {
       return false;
     }
-    
+
     return this.favorites.delete(favorite.id);
   }
-  
+
   async isFavorited(userId: number, productId: number): Promise<boolean> {
     return Array.from(this.favorites.values()).some(
       fav => fav.userId === userId && fav.productId === productId
     );
   }
-  
+
   // API Response formatting
   async getProductsWithFavoriteStatus(userId: number | null, searchQuery?: string): Promise<ProductResponse[]> {
     let products = searchQuery 
       ? await this.searchProducts(searchQuery)
       : await this.getAllProducts();
-    
+
     const userFavorites = userId 
       ? await this.getFavoritesByUserId(userId) 
       : [];
-      
+
     const favoritedProductIds = new Set(userFavorites.map(fav => fav.productId));
-    
+
     return products.map(product => ({
       id: product.id,
       name: product.name,
